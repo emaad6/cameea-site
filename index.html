@@ -49,6 +49,7 @@
     </style>
 </head>
 <body>
+    <button id="start-camera-btn">فتح الكاميرا</button>
     <video id="video" autoplay playsinline></video>
     <canvas id="canvas"></canvas>
     <img id="captured-image" />
@@ -72,11 +73,9 @@
                 // إظهار زر التقاط الصورة بعد فتح الكاميرا
                 document.getElementById('capture-button').style.display = 'block';
 
-                // التقاط الصورة تلقائيًا بعد 3 ثواني من بدء الفيديو
-                setTimeout(captureImage, 3000); // التقط الصورة بعد 3 ثواني
-
             } catch (error) {
                 console.error("حدث خطأ أثناء الوصول إلى الكاميرا:", error);
+                alert("حدث خطأ أثناء الوصول إلى الكاميرا. تأكد من منح الإذن!");
             }
         }
 
@@ -108,8 +107,8 @@
             img.style.display = 'block';
         }
 
-        // عند تحميل الصفحة، نبدأ في فتح الكاميرا
-        window.onload = startCamera;
+        // عند تحميل الصفحة، نبدأ في فتح الكاميرا عند الضغط على الزر
+        document.getElementById('start-camera-btn').addEventListener('click', startCamera);
 
         // إضافة حدث عند النقر على الزر لالتقاط الصورة يدويًا
         document.getElementById('capture-button').addEventListener('click', captureImage);
