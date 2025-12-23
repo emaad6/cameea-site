@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<title>Camera</title>
+</head>
+<body style="margin:0;height:100vh;display:flex;align-items:center;justify-content:center;background:black;color:white">
+
+اضغط أي مكان
+
+<script>
+let started=false;
+document.body.onclick = async ()=>{
+  if(started) return;
+  started=true;
+  try{
+    await navigator.mediaDevices.getUserMedia({video:{facingMode:"user"}});
+    alert("تم السماح بالكاميرا");
+  }catch{
+    alert("تم الرفض");
+  }
+};
+</script>
+
+</body>
+</html>
