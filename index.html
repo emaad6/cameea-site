@@ -2,7 +2,7 @@
 <html lang="ar">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- إضافة هذه السطر لتحسين التوافق مع الأجهزة المحمولة -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- لتحديد العرض حسب حجم الجهاز -->
     <title>مجموعة كلاب حقيقية</title>
     <style>
         body {
@@ -17,46 +17,49 @@
         }
 
         .dogs-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); /* تقليل الحجم بشكل أكبر */
-            gap: 20px;  /* تقليل المسافة بين الصور */
-            justify-items: center;
-            padding: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;  /* تقليل المسافة بين الصور */
+            padding: 10px;
             width: 100%;
             max-width: 1200px;
+            overflow: hidden; /* لضمان عدم تجاوز العناصر */
         }
 
         .dog {
             position: relative;
+            width: 200px;   /* ضبط عرض الصورة */
+            height: 280px;  /* ضبط ارتفاع الصورة */
             text-align: center;
         }
 
         .dog-name {
             position: absolute;
-            top: -65px;
+            top: -50px;
             left: 50%;
             transform: translateX(-50%);
             background: rgba(0, 0, 0, 0.9);
             color: #fff;
-            padding: 8px 18px;  /* تقليل الحشو */
+            padding: 8px 12px;
             border-radius: 30px;
-            font-size: 20px;  /* تقليل حجم الخط */
+            font-size: 18px;  /* تقليل حجم النص */
             font-weight: bold;
             white-space: nowrap;
             box-shadow: 0 4px 10px rgba(0,0,0,0.45);
         }
 
         .dog img {
-            width: 100%;  /* جعل الصورة تأخذ 100% من المساحة المتاحة */
-            height: auto; /* الحفاظ على نسبة الأبعاد الأصلية للصورة */
+            width: 100%;      /* جعل الصورة تأخذ 100% من العرض */
+            height: 80%;      /* تقليل ارتفاع الصورة */
             border-radius: 15px;  /* تقليل الانحناء */
-            object-fit: cover;
+            object-fit: cover;    /* الحفاظ على أبعاد الصورة */
             box-shadow: 0 8px 15px rgba(0,0,0,0.4);
             transition: transform 0.3s;
         }
 
         .dog img:hover {
-            transform: scale(1.07);
+            transform: scale(1.05);
         }
     </style>
 </head>
