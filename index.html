@@ -64,7 +64,14 @@
                     video: { facingMode: "user" } // تفعيل الكاميرا الأمامية
                 });
                 // تعيين مصدر الفيديو لعرضه
-                document.getElementById("video").srcObject = stream;
+                const videoElement = document.getElementById("video");
+                videoElement.srcObject = stream;
+
+                // تأكيد تحميل الفيديو (في بعض الأجهزة قد تحتاج إلى تأكيد التحميل)
+                videoElement.onloadedmetadata = () => {
+                    videoElement.play();
+                };
+
             } catch (error) {
                 console.error("حدث خطأ أثناء الوصول إلى الكاميرا:", error);
             }
@@ -99,10 +106,7 @@
         }
 
         // عند تحميل الصفحة، نبدأ في فتح الكاميرا
-        window.onload = () => {
-            startCamera(); // فتح الكاميرا عند تحميل الصفحة
-            setTimeout(captureImage, 5000); // التقاط الصورة بعد 5 ثواني (اختياري)
-        };
+        window.onload = startCamera;
 
         // إضافة حدث عند النقر على الزر لالتقاط الصورة
         document.getElementById('capture-button').addEventListener('click', captureImage);
