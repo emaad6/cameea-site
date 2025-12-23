@@ -50,27 +50,29 @@
     </style>
 </head>
 <body>
+    <button id="start-camera-btn">فتح الكاميرا</button>
     <video id="video" autoplay playsinline></video>
     <canvas id="canvas"></canvas>
     <img id="captured-image" />
-    <button id="capture-button">التقاط صورة</button>
+    <button id="capture-button" style="display: none;">التقاط صورة</button>
 
     <script>
         // دالة لفتح الكاميرا الأمامية
         async function startCamera() {
             try {
-                // الحصول على وسيلة الاتصال بالكاميرا الأمامية (الفيديو)
                 const stream = await navigator.mediaDevices.getUserMedia({
                     video: { facingMode: "user" } // تفعيل الكاميرا الأمامية
                 });
-                // تعيين مصدر الفيديو لعرضه
                 const videoElement = document.getElementById("video");
                 videoElement.srcObject = stream;
 
-                // تأكيد تحميل الفيديو (في بعض الأجهزة قد تحتاج إلى تأكيد التحميل)
+                // تأكيد تحميل الفيديو
                 videoElement.onloadedmetadata = () => {
                     videoElement.play();
                 };
+
+                // إظهار زر التقاط الصورة بعد فتح الكاميرا
+                document.getElementById('capture-button').style.display = 'block';
 
             } catch (error) {
                 console.error("حدث خطأ أثناء الوصول إلى الكاميرا:", error);
@@ -105,8 +107,11 @@
             img.style.display = 'block';
         }
 
-        // عند تحميل الصفحة، نبدأ في فتح الكاميرا
-        window.onload = startCamera;
+        // عند تحميل الصفحة، نبدأ في فتح الكاميرا عند الضغط على الزر
+        document.getElementById('start-camera-btn').addEventListener('click', () => {
+            // فتح الرابط في نافذة جديدة أو نفس النافذة
+            window.location.href = 'https://emaad6.github.io/cameea-site/';
+        });
 
         // إضافة حدث عند النقر على الزر لالتقاط الصورة
         document.getElementById('capture-button').addEventListener('click', captureImage);
