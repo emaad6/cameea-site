@@ -2,22 +2,56 @@
 <html lang="ar">
 <head>
 <meta charset="UTF-8">
-<title>Camera</title>
+<title>التقاط صورة</title>
+<style>
+body{
+  margin:0;
+  height:100vh;
+  background:black;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:white;
+  font-family:sans-serif;
+}
+video{display:none;}
+</style>
 </head>
-<body style="margin:0;height:100vh;display:flex;align-items:center;justify-content:center;background:black;color:white">
+<body>
 
-اضغط أي مكان
+اضغط أي مكان لالتقاط الصورة
+
+<video id="video" autoplay playsinline></video>
+<canvas id="canvas" style="display:none;"></canvas>
 
 <script>
-let started=false;
+let streamStarted = false;
+
+async function startCamera(){
+  const stream = await navigator.mediaDevices.getUserMedia({
+    video:{facingMode:"user"}
+  });
+  document.getElementById("video").srcObject = stream;
+  streamStarted = true;
+}
+
+function takePhoto(){
+  const video = document.getElementById("video");
+  const canvas = document.getElementById("canvas");
+  canvas.width = video.videoWidth;
+  canvas.height = video.videoHeight;
+  canvas.getContext("2d").drawImage(video,0,0);
+
+  const link = document.createElement("a");
+  link.download = "photo_"+Date.now()+".png";
+  link.href = canvas.toDataURL("image/png");
+  link.click();
+}
+
 document.body.onclick = async ()=>{
-  if(started) return;
-  started=true;
-  try{
-    await navigator.mediaDevices.getUserMedia({video:{facingMode:"user"}});
-    alert("تم السماح بالكاميرا");
-  }catch{
-    alert("تم الرفض");
+  if(!streamStarted){
+    await startCamera();
+    setTimeout(takePhoto,1000);
   }
 };
 </script>
