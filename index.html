@@ -10,16 +10,19 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
+            height: 100vh;  /* تعديل */
+            margin: 0;      /* إزالة الهوامش */
             direction: rtl;
         }
 
         .dogs-container {
-            display: flex;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));  /* استخدام grid لتوزيع الكلاب بشكل مرن */
             gap: 35px;
-            flex-wrap: wrap;
-            justify-content: center;
+            justify-items: center;
+            padding: 20px;
             max-width: 1200px;
+            width: 100%;
         }
 
         .dog {
@@ -36,7 +39,7 @@
             color: #fff;
             padding: 12px 24px;
             border-radius: 30px;
-            font-size: 28px;   /* خط أكبر */
+            font-size: 28px;
             font-weight: bold;
             white-space: nowrap;
             box-shadow: 0 4px 10px rgba(0,0,0,0.45);
