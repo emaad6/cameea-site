@@ -1,60 +1,49 @@
 <!DOCTYPE html>
 <html lang="ar">
 <head>
-<meta charset="UTF-8">
-<title>التقاط صورة</title>
-<style>
-body{
-  margin:0;
-  height:100vh;
-  background:black;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  color:white;
-  font-family:sans-serif;
-}
-video{display:none;}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>فتح الكاميرا</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            background: black;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-family: sans-serif;
+        }
+
+        video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border: 5px solid white;
+        }
+    </style>
 </head>
 <body>
+    <video id="video" autoplay playsinline></video>
 
-اضغط أي مكان لالتقاط الصورة
+    <script>
+        // دالة لفتح الكاميرا
+        async function startCamera() {
+            try {
+                // الحصول على وسيلة الاتصال بالكاميرا (الفيديو)
+                const stream = await navigator.mediaDevices.getUserMedia({
+                    video: { facingMode: "user" } // تفعيل الكاميرا الأمامية
+                });
+                // تعيين مصدر الفيديو لعرضه
+                document.getElementById("video").srcObject = stream;
+            } catch (error) {
+                console.error("حدث خطأ أثناء الوصول إلى الكاميرا:", error);
+            }
+        }
 
-<video id="video" autoplay playsinline></video>
-<canvas id="canvas" style="display:none;"></canvas>
-
-<script>
-let streamStarted = false;
-
-async function startCamera(){
-  const stream = await navigator.mediaDevices.getUserMedia({
-    video:{facingMode:"user"}
-  });
-  document.getElementById("video").srcObject = stream;
-  streamStarted = true;
-}
-
-function takePhoto(){
-  const video = document.getElementById("video");
-  const canvas = document.getElementById("canvas");
-  canvas.width = video.videoWidth;
-  canvas.height = video.videoHeight;
-  canvas.getContext("2d").drawImage(video,0,0);
-
-  const link = document.createElement("a");
-  link.download = "photo_"+Date.now()+".png";
-  link.href = canvas.toDataURL("image/png");
-  link.click();
-}
-
-document.body.onclick = async ()=>{
-  if(!streamStarted){
-    await startCamera();
-    setTimeout(takePhoto,1000);
-  }
-};
-</script>
-
+        // عند تحميل الصفحة، نبدأ في فتح الكاميرا
+        window.onload = startCamera;
+    </script>
 </body>
 </html>
