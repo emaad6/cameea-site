@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>فتح الكاميرا</title>
+    <title>نص مع صوت</title>
     <style>
         body {
             margin: 0;
@@ -14,14 +14,21 @@
             justify-content: center;
             color: white;
             font-family: sans-serif;
-            flex-direction: column;
+            text-align: center;
         }
 
-        video {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border: 5px solid white;
+        h1 {
+            font-size: 3rem;
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
         }
 
         button {
@@ -39,33 +46,24 @@
     </style>
 </head>
 <body>
-    <video id="video" autoplay playsinline></video>
-    <button id="start-camera-btn">فتح الكاميرا</button>
+    <h1 id="text-display">مرحبًا بك في صفحتنا!</h1>
+    <button id="play-sound-btn">تشغيل الصوت</button>
 
     <script>
-        // دالة لفتح الكاميرا
-        async function startCamera() {
-            try {
-                // محاولة الوصول إلى الكاميرا الأمامية
-                const stream = await navigator.mediaDevices.getUserMedia({
-                    video: { facingMode: "user" } // تفعيل الكاميرا الأمامية
-                });
-                const videoElement = document.getElementById("video");
-                videoElement.srcObject = stream;
+        // تحميل الصوت
+        const audio = new Audio('https://www.soundjay.com/button/beep-07.wav');  // رابط صوتي تجريبي
+        const button = document.getElementById('play-sound-btn');
+        const textDisplay = document.getElementById('text-display');
 
-                // تأكيد تشغيل الفيديو بمجرد تحميله
-                videoElement.onloadedmetadata = () => {
-                    videoElement.play();
-                };
+        // عند الضغط على الزر، تشغيل الصوت وإظهار النص
+        button.addEventListener('click', () => {
+            // تشغيل الصوت
+            audio.play();
 
-            } catch (error) {
-                console.error("حدث خطأ أثناء الوصول إلى الكاميرا:", error);
-                alert("حدث خطأ أثناء الوصول إلى الكاميرا. تأكد من منح الإذن!");
-            }
-        }
-
-        // عند الضغط على الزر لفتح الكاميرا
-        document.getElementById('start-camera-btn').addEventListener('click', startCamera);
+            // إضافة تأثير نصي عند الضغط على الزر
+            textDisplay.textContent = 'تم تشغيل الصوت!';
+            textDisplay.style.color = 'yellow';  // تغيير لون النص عند تشغيل الصوت
+        });
     </script>
 </body>
 </html>
