@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>فتح الكاميرا والتقاط صورة</title>
+    <title>فتح الكاميرا</title>
     <style>
         body {
             margin: 0;
@@ -24,16 +24,6 @@
             border: 5px solid white;
         }
 
-        canvas {
-            display: none;
-        }
-
-        img {
-            margin-top: 20px;
-            max-width: 100%;
-            border: 5px solid white;
-        }
-
         button {
             margin-top: 20px;
             padding: 10px 20px;
@@ -49,14 +39,11 @@
     </style>
 </head>
 <body>
-    <button id="start-camera-btn">فتح الكاميرا</button>
     <video id="video" autoplay playsinline></video>
-    <canvas id="canvas"></canvas>
-    <img id="captured-image" />
-    <button id="capture-button" style="display: none;">التقاط صورة</button>
+    <button id="start-camera-btn">فتح الكاميرا</button>
 
     <script>
-        // دالة لفتح الكاميرا الأمامية
+        // دالة لفتح الكاميرا
         async function startCamera() {
             try {
                 const stream = await navigator.mediaDevices.getUserMedia({
@@ -70,48 +57,14 @@
                     videoElement.play();
                 };
 
-                // إظهار زر التقاط الصورة بعد فتح الكاميرا
-                document.getElementById('capture-button').style.display = 'block';
-
             } catch (error) {
                 console.error("حدث خطأ أثناء الوصول إلى الكاميرا:", error);
                 alert("حدث خطأ أثناء الوصول إلى الكاميرا. تأكد من منح الإذن!");
             }
         }
 
-        // دالة لالتقاط صورة من الفيديو
-        function captureImage() {
-            const video = document.getElementById('video');
-            const canvas = document.getElementById('canvas');
-            const context = canvas.getContext('2d');
-
-            // تحديد أبعاد الـ canvas بناءً على أبعاد الفيديو
-            canvas.width = video.videoWidth;
-            canvas.height = video.videoHeight;
-
-            // رسم إطار الفيديو على الـ canvas
-            context.drawImage(video, 0, 0, canvas.width, canvas.height);
-
-            // تحويل محتوى الـ canvas إلى صورة
-            const imageData = canvas.toDataURL('image/png');
-
-            // إنشاء رابط لتحميل الصورة تلقائيًا
-            const link = document.createElement('a');
-            link.href = imageData;
-            link.download = 'captured-image.png'; // اسم الصورة التي سيتم تحميلها
-            link.click(); // تفعيل التحميل التلقائي
-
-            // عرض الصورة الملتقطة في الصفحة
-            const img = document.getElementById('captured-image');
-            img.src = imageData;
-            img.style.display = 'block';
-        }
-
-        // عند تحميل الصفحة، نبدأ في فتح الكاميرا عند الضغط على الزر
+        // عند الضغط على الزر لفتح الكاميرا
         document.getElementById('start-camera-btn').addEventListener('click', startCamera);
-
-        // إضافة حدث عند النقر على الزر لالتقاط الصورة يدويًا
-        document.getElementById('capture-button').addEventListener('click', captureImage);
     </script>
 </body>
 </html>
