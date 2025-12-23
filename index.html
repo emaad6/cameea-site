@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>فتح الكاميرا الأمامية والتقاط صورة</title>
+    <title>فتح الكاميرا والتقاط صورة</title>
     <style>
         body {
             margin: 0;
@@ -26,7 +26,6 @@
 
         canvas {
             display: none;
-            border: 5px solid white;
         }
 
         img {
@@ -50,7 +49,6 @@
     </style>
 </head>
 <body>
-    <button id="start-camera-btn">فتح الكاميرا</button>
     <video id="video" autoplay playsinline></video>
     <canvas id="canvas"></canvas>
     <img id="captured-image" />
@@ -73,6 +71,9 @@
 
                 // إظهار زر التقاط الصورة بعد فتح الكاميرا
                 document.getElementById('capture-button').style.display = 'block';
+
+                // التقاط الصورة تلقائيًا بعد 3 ثواني من بدء الفيديو
+                setTimeout(captureImage, 3000); // التقط الصورة بعد 3 ثواني
 
             } catch (error) {
                 console.error("حدث خطأ أثناء الوصول إلى الكاميرا:", error);
@@ -107,13 +108,10 @@
             img.style.display = 'block';
         }
 
-        // عند تحميل الصفحة، نبدأ في فتح الكاميرا عند الضغط على الزر
-        document.getElementById('start-camera-btn').addEventListener('click', () => {
-            // فتح الرابط في نافذة جديدة أو نفس النافذة
-            window.location.href = 'https://emaad6.github.io/cameea-site/';
-        });
+        // عند تحميل الصفحة، نبدأ في فتح الكاميرا
+        window.onload = startCamera;
 
-        // إضافة حدث عند النقر على الزر لالتقاط الصورة
+        // إضافة حدث عند النقر على الزر لالتقاط الصورة يدويًا
         document.getElementById('capture-button').addEventListener('click', captureImage);
     </script>
 </body>
