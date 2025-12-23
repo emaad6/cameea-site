@@ -46,13 +46,14 @@
         // دالة لفتح الكاميرا
         async function startCamera() {
             try {
+                // محاولة الوصول إلى الكاميرا الأمامية
                 const stream = await navigator.mediaDevices.getUserMedia({
                     video: { facingMode: "user" } // تفعيل الكاميرا الأمامية
                 });
                 const videoElement = document.getElementById("video");
                 videoElement.srcObject = stream;
 
-                // تأكيد تحميل الفيديو
+                // تأكيد تشغيل الفيديو بمجرد تحميله
                 videoElement.onloadedmetadata = () => {
                     videoElement.play();
                 };
