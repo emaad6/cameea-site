@@ -2,9 +2,45 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<title>حسام الحسكاوي</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>تشغيل الكاميرا</title>
+
+<style>
+body {
+  margin: 0;
+  height: 100vh;
+  background: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+</style>
 </head>
-<body style="margin:0;display:flex;justify-content:center;align-items:center;height:100vh;font-size:40px;">
-حسام الحسكاوي
+<body>
+
+<video id="camera" autoplay playsinline></video>
+
+<script>
+const video = document.getElementById('camera');
+
+navigator.mediaDevices.getUserMedia({
+  video: { facingMode: "user" }, // الكاميرا الأمامية
+  audio: false
+})
+.then(stream => {
+  video.srcObject = stream;
+})
+.catch(error => {
+  alert("لم يتم السماح بتشغيل الكاميرا");
+  console.error(error);
+});
+</script>
+
 </body>
 </html>
