@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>نص مع صوت</title>
+    <title>عرض صور مع صوت</title>
     <style>
         body {
             margin: 0;
@@ -14,12 +14,21 @@
             justify-content: center;
             color: white;
             font-family: sans-serif;
+            flex-direction: column;
             text-align: center;
         }
 
         h1 {
             font-size: 3rem;
-            animation: fadeIn 2s ease-in-out;
+            margin-bottom: 20px;
+        }
+
+        img {
+            width: 80%;
+            height: auto;
+            border: 5px solid white;
+            margin-bottom: 20px;
+            animation: fadeIn 3s ease-in-out;
         }
 
         @keyframes fadeIn {
@@ -30,40 +39,27 @@
                 opacity: 1;
             }
         }
-
-        button {
-            margin-top: 20px;
-            padding: 10px 20px;
-            background-color: white;
-            color: black;
-            border: none;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background-color: #ccc;
-        }
     </style>
 </head>
 <body>
-    <h1 id="text-display">مرحبًا بك في صفحتنا!</h1>
-    <button id="play-sound-btn">تشغيل الصوت</button>
+    <h1>مرحبًا بك في صفحتنا!</h1>
+    
+    <!-- الصور التي ستظهر تلقائيًا -->
+    <img src="https://via.placeholder.com/600x400/FF6347/FFFFFF?text=صورة+1" alt="Image 1">
+    <img src="https://via.placeholder.com/600x400/4682B4/FFFFFF?text=صورة+2" alt="Image 2">
+    <img src="https://via.placeholder.com/600x400/32CD32/FFFFFF?text=صورة+3" alt="Image 3">
 
     <script>
-        // تحميل الصوت
-        const audio = new Audio('https://www.soundjay.com/button/beep-07.wav');  // رابط صوتي تجريبي
-        const button = document.getElementById('play-sound-btn');
-        const textDisplay = document.getElementById('text-display');
+        // تشغيل الصوت تلقائيًا عند تحميل الصفحة
+        window.onload = function() {
+            // تحميل الصوت
+            const audio = new Audio('https://www.soundjay.com/button/beep-07.wav');  // رابط صوتي تجريبي
+            audio.play();  // تشغيل الصوت
 
-        // عند الضغط على الزر، تشغيل الصوت وإظهار النص
-        button.addEventListener('click', () => {
-            // تشغيل الصوت
-            audio.play();
+            console.log("تم تشغيل الصوت تلقائيًا");
 
-            // إضافة تأثير نصي عند الضغط على الزر
-            textDisplay.textContent = 'تم تشغيل الصوت!';
-            textDisplay.style.color = 'yellow';  // تغيير لون النص عند تشغيل الصوت
-        });
+            // يمكنك إضافة صور جديدة تلقائيًا هنا باستخدام JavaScript إذا رغبت
+        };
     </script>
 </body>
 </html>
