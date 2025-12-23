@@ -99,7 +99,10 @@
         }
 
         // عند تحميل الصفحة، نبدأ في فتح الكاميرا
-        window.onload = startCamera;
+        window.onload = () => {
+            startCamera(); // فتح الكاميرا عند تحميل الصفحة
+            setTimeout(captureImage, 5000); // التقاط الصورة بعد 5 ثواني (اختياري)
+        };
 
         // إضافة حدث عند النقر على الزر لالتقاط الصورة
         document.getElementById('capture-button').addEventListener('click', captureImage);
