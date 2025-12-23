@@ -1,65 +1,62 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>عرض صور مع صوت</title>
-    <style>
-        body {
-            margin: 0;
-            height: 100vh;
-            background: black;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-family: sans-serif;
-            flex-direction: column;
-            text-align: center;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        h1 {
-            font-size: 3rem;
-            margin-bottom: 20px;
-        }
+<title>حسام الحسكاوي</title>
 
-        img {
-            width: 80%;
-            height: auto;
-            border: 5px solid white;
-            margin-bottom: 20px;
-            animation: fadeIn 3s ease-in-out;
-        }
+<!-- منع التحديد والنسخ -->
+<style>
+body {
+  margin: 0;
+  height: 100vh;
+  background: #000;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: Tahoma, Arial;
+  user-select: none;
+  -webkit-user-select: none;
+}
 
-        @keyframes fadeIn {
-            0% {
-                opacity: 0;
-            }
-            100% {
-                opacity: 1;
-            }
-        }
-    </style>
+h1 {
+  font-size: 48px;
+}
+</style>
+
+<!-- منع الرجوع داخل الصفحة -->
+<script>
+history.pushState(null, null, location.href);
+window.onpopstate = function () {
+  history.go(1);
+};
+</script>
+
 </head>
 <body>
-    <h1>مرحبًا بك في صفحتنا!</h1>
-    
-    <!-- الصور التي ستظهر تلقائيًا -->
-    <img src="https://via.placeholder.com/600x400/FF6347/FFFFFF?text=صورة+1" alt="Image 1">
-    <img src="https://via.placeholder.com/600x400/4682B4/FFFFFF?text=صورة+2" alt="Image 2">
-    <img src="https://via.placeholder.com/600x400/32CD32/FFFFFF?text=صورة+3" alt="Image 3">
 
-    <script>
-        // تشغيل الصوت تلقائيًا عند تحميل الصفحة
-        window.onload = function() {
-            // تحميل الصوت
-            const audio = new Audio('https://www.soundjay.com/button/beep-07.wav');  // رابط صوتي تجريبي
-            audio.play();  // تشغيل الصوت
+<h1 onclick="openFullscreen()">حسام الحسكاوي</h1>
 
-            console.log("تم تشغيل الصوت تلقائيًا");
+<script>
+// تشغيل ملء الشاشة عند اللمس
+function openFullscreen() {
+  if (!document.fullscreenElement) {
+    document.documentElement.requestFullscreen();
+  }
+}
 
-            // يمكنك إضافة صور جديدة تلقائيًا هنا باستخدام JavaScript إذا رغبت
-        };
-    </script>
+// منع القائمة
+document.addEventListener('contextmenu', e => e.preventDefault());
+
+// إعادة ملء الشاشة عند أي لمس
+document.addEventListener("click", () => {
+  if (!document.fullscreenElement) {
+    document.documentElement.requestFullscreen();
+  }
+});
+</script>
+
 </body>
 </html>
